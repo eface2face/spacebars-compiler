@@ -36,7 +36,7 @@ fs.readFile(input, 'utf8', function (err,data) {
         js += "	var HTML = Meteor.HTML;\r\n";
         js += "	var Blaze = Meteor.Blaze;\r\n";
         js += "	var Spacebars = Meteor.Spacebars;\r\n";
-	js += "	return = " + Meteor.SpacebarsCompiler.compile(data, {isTemplate: true}) + ";\r\n";
+	js += "	return " + Meteor.SpacebarsCompiler.compile(data, {isTemplate: true}) + ";\r\n";
 	js += "};\r\n";	
 	fs.writeFile(output,js,{flags:'w'}, function(err) {
 		if(err) 
