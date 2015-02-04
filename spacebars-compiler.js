@@ -1,10 +1,10 @@
-var input,output,dir,i;
+var input,output,dir,i,18n = false;
 
 function showHelp() {
-	console.log("Usage: spacebars-compiler [--input template.hbs] [--dir directory]  --output template.js");
+	console.log("Usage: spacebars-compiler [--input template.hbs] [--dir directory] [--i18n]  --output template.js");
 };
 
-for(i=0;i<process.argv.length-1;++i) { 
+for(i=0;i<process.argv.length;++i) { 
 	switch(process.argv[i]) {
 		case "--input":
 		case "-i":
@@ -17,6 +17,9 @@ for(i=0;i<process.argv.length-1;++i) {
 		case "--output":
 		case "-o":
 			output = process.argv[++i];
+			break;
+		case "--i18n":
+			i18n = true;
 			break;
 	}
 }
@@ -43,6 +46,10 @@ if (input)
 		js += "	var Spacebars = Meteor.Spacebars;\r\n";
 		js += "	return " + Meteor.SpacebarsCompiler.compile(data, {isTemplate: true}) + ";\r\n";
 		js += "};\r\n";	
+		//Add support for i18n with {{[xxx]}} -> {{t 'xxx'}}
+		if (i18n)
+			//Replace
+			data.replace(/\{\{\s*\[\s*([^\s]*)\s*\]\s*\}\}/g,"{{t '$1'}}");
 		//Write JS to file
 		fs.writeFile(output,js,{flags:'w'}, function(err) {
 			if(err) 
@@ -71,6 +78,10 @@ else if (dir)
 				console.log("appending template '" + template +"'");
 				//Read data
 				var data = fs.readFileSync(dir+"/"+file, 'utf8');
+				//Add support for i18n with {{[xxx]}} -> {{t 'xxx'}}
+				if (i18n)
+					//Replace
+					data = data.replace(/\{\{\s*\[\s*([^\s]*)\s*\]\s*\}\}/g,"{{t '$1'}}");
 				//Compile and generate entry in template map
 				js += "	templates['" + template + "'] = " + Meteor.SpacebarsCompiler.compile(data, {isTemplate: true}) + ";\r\n";
 			}
