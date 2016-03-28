@@ -1,6 +1,6 @@
 {
   "name": "spacebars-compiler",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Spacebars compiler",
   "main": "spacebars-compiler.js",
   "bin": "bin/spacebars-compiler.js",
@@ -20,11 +20,11 @@
   "dependencies": {
     "fs": "0.0.2",
     "lodash": "^3.0.1",
-    "meteor-blaze-tools": "^1.2.4",
-    "meteor-core": "^1.2.4",
-    "meteor-html-tools": "^1.2.4",
-    "meteor-htmljs": "^1.2.4",
-    "meteor-spacebars-compiler": "^1.2.4",
+    "meteor-blaze-tools": "^1.5.0",
+    "meteor-core": "^1.3.0",
+    "meteor-html-tools": "^1.5.0",
+    "meteor-htmljs": "^1.5.0",
+    "meteor-spacebars-compiler": "^1.3.0",
     "path": "^0.11.14"
   }
 }
